@@ -1,24 +1,28 @@
 /**
- * Default areEqual function for determining object equality, meant to be used on pimitive
- * types only. number, string, boolean. Object types probably won't work.
+ * Default equality check function used by the find function. This is 
+ * meant to be used on pimitive types only; number, string, boolean. 
+ * 
+ * Note: Object types probably won't work.
  * 
  * @param {*} a 
  * @param {*} b 
- * @returns 
+ * @returns True if the supplied values are equal
  */
-const areEqual = (a, b) => a === b;
+const areEqualCheck = (a, b) => a === b;
 
 /**
- * Default filter check returns true when an item is not undefined or null.
+ * Default filter check returns true for anything that is not undefined or null.
+ * 
  * @param {*} a 
  * @returns 
  */
 const defaultFilterCheck = (a) => a !== undefined && a !== null;
 
 /**
- * Default compare operation for primitive types.
+ * Default compare operation for the sort fucntion. Works with primitive types, object types are not
+ * supported and may not work as expected.
  * 
- * If a is equal to be returns 0;
+ * If a is equal to b returns 0;
  * If a is greater than b returns 1;
  * otherwise return -1;
  * 
@@ -26,12 +30,14 @@ const defaultFilterCheck = (a) => a !== undefined && a !== null;
  * @param {*} b 
  * @returns 
  */
-const compare = (a, b) => a === b ? 0 : a > b ? 1 : -1;
+const defaultComparitor = (a, b) => a === b ? 0 : a > b ? 1 : -1;
 
 /**
- * Reverse the supplied array and return it without modifying the orignally array.
+ * Reverse the supplied array and return it without modifying the orignal array.
  * 
- * @param {*} array 
+ * Note: Should throw an error if array is undefined or null
+ * 
+ * @param {*} array The array to reverse.
  * @returns 
  */
 const reverse = (array) => {
@@ -40,39 +46,50 @@ const reverse = (array) => {
 }
 
 /**
- * Find the index of the specified value in the array using the supplied check
- * function.
+ * Find the index of the specified value in the array using the supplied equality check
+ * function. Retrun the index of the first value that is equal. If no value is found that
+ * is equal, return -1;
  * 
- * @param {*} array 
- * @param {*} value 
- * @param {*} check
+ * Note: Should throw an error if array is undefined or null
+ * 
+ * @param {*} array The array to search
+ * @param {*} value The value to check for
+ * @param {*} equalityCheck Options function for comparing two array elements and determining if they are equal
  * @returns 
  */
-const find = (array, value, check = areEqual) => {
+const find = (array, value, equalityCheck = areEqualCheck) => {
     // TODO: find the first index of the specified value or -1 if not found.
     return undefined;
 }
 
 /**
- * Filter the array using the specified filter function, so that any time the check function
- * returns true, it should be added to the results of the filter.
+ * Filter the array using the specified filterCheck function, so that any time the check function
+ * returns true, it should be added to the results of the filter. Does not modify the supplied array
+ * but returns a new array with the filtered results.
  * 
- * @param {*} array 
- * @param {*} check 
+ * Note: Should throw an error if array is undefined or null
+ * 
+ * @param {*} array The array to filter
+ * @param {*} filterCheck A function that should be called on each element in the array to determine if it 
+ * should be kept or filtered. If this function returns true on an item it is kept, if it returns false, it
+ * is filtered. By default this will filter all null or undefined values.
  * @returns 
  */
-const filter = (array, check = defaultFilterCheck) => {
+const filter = (array, filterCheck = defaultFilterCheck) => {
     return undefined;
 }
 
 /**
- * Sort the specified array using the suppliec comparitor
+ * Sort the specified array using the suppliec comparitor. Does not modify the original array.
  * 
- * @param {*} array 
- * @param {*} comparitor 
+ * Note: Should throw an error if array is undefined or null
+ * 
+ * @param {*} array The array to sort
+ * @param {*} comparitor A function that compares two values. Returns 0 if the values are the same, returns 1 if the 
+ * first value is greater than the second value, and returns -1 if the first value is less than the second value.
  * @returns 
  */
-const sort = (array, comparitor = compare) => {
+const sort = (array, comparitor = defaultComparitor) => {
     return undefined;
 }
 
