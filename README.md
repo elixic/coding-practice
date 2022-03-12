@@ -3,7 +3,8 @@
 ## To Run
 
 * 1.) Install Node
-* 2.) run "npm test" from the package root.
+* 2.) run "npm install" from the package root.
+* 3.) run "npm test" from the package root.
 
 ## To Pass
 
