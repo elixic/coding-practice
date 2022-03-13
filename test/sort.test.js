@@ -1,14 +1,31 @@
 const { sort } = require("../src/arrays");
 
+const UNSORTED_ARRAY = ["c", "a", "b"];
+const SORTED_ARRAY = ["a", "b", "c"];
+const CUSTOM_COMPARITOR_ARRAY = [
+    { name: "a", value: 1 }, 
+    { name: "b", value: 2 }, 
+    { name: "c", value: 3 }, 
+    { name: "!a", value: 0 }, // this should turn into the first element in the array
+];
+
 describe("sort.tests", () => {
     it("Will sort an array", () => {
-        const arr = ["c", "a", "b"];
+        const arr = UNSORTED_ARRAY;
+
+        // make sure the array sorted
         expect(sort(arr)).toEqual(["a", "b", "c"]);
+        // make sure the original array is un-modified
+        expect(arr).toEqual(UNSORTED_ARRAY);
     });
 
     it("Won't change a sorted array", () => {
-        const arr = ["a", "b", "c"];
-        expect(sort(arr)).toEqual(["a", "b", "c"]);
+        const arr = SORTED_ARRAY;
+
+        // make sure the array stays the same
+        expect(sort(arr)).toEqual(arr);
+        // make sure the original array is unmodified
+        expect(arr).toEqual(SORTED_ARRAY);
     });
 
     it("Won't change a single element array", () => {
@@ -31,10 +48,14 @@ describe("sort.tests", () => {
             }
         }
 
-        const arr = [{ name: "a", value: 1 }, { name: "b", value: 2 }, { name: "c", value: 3 }, { name: "!a", value: 0 }];
+        const arr = CUSTOM_COMPARITOR_ARRAY;
+
+        // make sure the array sorted properly
         expect(sort(arr, compare)).toEqual([
             { name: "!a", value: 0 }, { name: "a", value: 1 }, { name: "b", value: 2 }, { name: "c", value: 3 }
         ]);
+        // make sure the original array was un-modified
+        expect(arr).toEqual(CUSTOM_COMPARITOR_ARRAY);
     });
 
     it("Will throw an error with an undefined array", () => {
@@ -42,6 +63,18 @@ describe("sort.tests", () => {
 
         try {
             sort(undefined);
+        } catch (err) {
+            error = err;
+        }
+
+        expect(error).toBeTruthy();
+    });
+
+    it("Will throw an error with an null array", () => {
+        const error = undefined;
+
+        try {
+            sort(null);
         } catch (err) {
             error = err;
         }
